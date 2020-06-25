@@ -1,0 +1,248 @@
+<html>
+<head>
+<style>
+
+</style>  
+
+</head>
+ 
+<body>
+    <!-- <input type="text" id="qr-data" onchange="generateQR()"> -->
+	<div>
+	<div style=" margin-top: 30px;">
+	Dear Sir / Madam,<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In view of the ongoing COVID-19 situation, Our Company is taking precautionary measures to safeguard the well-being of you & your family, as well as the well-being of our employees.<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We seek your co-operation in filling up this declaration form. The details you submit will be held in confidence in accordance with the data protection act and will be used to facilitate contact and health measures to be taken, in the event of any incidents involving COVID-19.
+	</div>
+    <div style="text-align: center; margin-top: 30px;">
+		
+		<form>
+		<table>
+		<tr>
+		<td>Name:</td>
+		<td><input type="text" id="empname" placeholder="Name"></td>
+		</tr>
+		<tr>
+		<td>Email Id:</td>
+		<td><input type="text" id="email" placeholder="Email Id"></td>
+		</tr>
+		<tr>
+		<td>Employee Id:</td>
+		<td><input type="text" id="empid" maxlength="7" placeholder="Employee Id"></td>
+		</tr>
+		<tr>
+		<td><label for="Gender">Gender:</label></td>
+		<td>
+		<select name="gender" id="gender">
+			<option value="m">Male</option>
+			<option value="f">Female</option>
+		</select>
+		</td>
+		</tr>
+		<tr>
+		<td>Mobile NO:</td>
+		<td><input type="text" id="mobile"maxlength="10" placeholder="Mobile NO"></td>
+		</tr>
+		<tr>
+		<td>Department:</td>
+		<td><input type="text" id="department" placeholder="Department"></td>
+		</tr>
+		
+		<tr>
+		<td>Travelling From:</td>
+		<td><input type="text" id="travellingfrom" placeholder="Travelling From"></td>
+		</tr>
+		
+		<tr>
+		<td>1)	Are you presently suffering from fever / cough / shortness of breath? : Y/N</td>
+		<td>
+		<input type="radio" id="yes1" name="option1" class="option1"  value="yes">
+		<input type="radio" id="no1"  name="option1" class="option1"  value="no">
+		</td>
+		</tr>
+		
+		<tr>
+		<td>2)	Any present history of fever / cough / shortness of breath in your family?: Y/N</td>
+		<td>
+		<input type="radio" id="yes2" name="option2" class="option2" value="yes">
+		<input type="radio" id="no2" name="option2"  class="option2" value="no">
+		</td>
+		</tr>
+		
+		<tr>
+		<td>3)	History of contact with COVID-19 positive case or a suspected case of  COVID-19 in the past 10days? : Y/N</td>
+		<td>
+		<input type="radio" id="yes3" name="option3" class="option3" value="yes">
+		<input type="radio" id="no3" name="option3" class="option3"  value="no">
+		</td>
+		</tr>
+		
+		<tr>
+		<td>4)	Travel history – City / Country visited in the last 10days:	</td>
+		<td>
+		<input type="radio" id="yes4" name="option4" class="option4" value="yes">
+		<input type="radio" id="no4" name="option4" class="option4" value="no">
+		
+		</tr>
+		
+		<tr>
+		<td>5)	Are you having pre-existing medical conditions such as high blood pressure, diabetes, cardiovascular conditions<br>, severe chronic respiratory diseases, cancer or severe immunodeficiency? : Y/N</td>
+		<td>
+		<input type="radio" id="yes5" name="option5" class="option5" value="yes">
+		<input type="radio" id="no5" name="option5" class="option5" value="no">
+		</td>
+		</tr>
+		
+		<tr>
+		<td>6)	Have you undergone any surgery in the last 6 months? : Y/N</td>
+		<td>
+		<input type="radio" id="yes6" name="option6" class="option6" value="yes">
+		<input type="radio" id="no6" name="option6" class="option6" value="no">
+		</td>
+		</tr>
+		
+		<tr>
+		<td>7)	 Have you installed Aryogya setu app ? : Y/N</td>
+		<td>
+		<input type="radio" id="yes7" name="option7" class="option7" value="yes">
+		<input type="radio" id="no7" name="option7" class="option7" value="no">
+		</td>
+		</tr>
+		</table>
+	
+		
+        <p style="margin-top: 30px;">
+            <input type="button" value="Submit" id="submit" onclick="generateQR()">
+			<input type="reset" value="Reset" id="reset" onclick="resetForm()">
+        </p>
+		</form>
+		<p id="homeQuarentineShow" style="display:none">
+		Home Quarantine
+		</p>
+		 </div>
+		
+		 <a  href="" id="download" >
+			Download QRcode
+		</a>
+		
+		<a href="" id="resetBarcode" style="display:none"> Reset QRcode
+		
+		</a>
+		 <div id="qrcode"></div>
+		 
+		</div>
+	</body>
+<!-- <script src="file:///storage/emulated/0/Download/qrcode.min.js"></script> -->
+<script src="qrcode.min.js"></script>
+<script src="jquery-1.12.4.min.js"></script>
+<script>
+    var empname = document.getElementById("empname");
+	var empemail = document.getElementById("email");
+	
+    var empid = document.getElementById("empid");
+	var gender = document.getElementById("gender");
+    var mobile = document.getElementById("mobile");
+	var department = document.getElementById("department");
+    var travellingfrom = document.getElementById("travellingfrom");
+	
+    var qrcode = new QRCode(document.getElementById("qrcode"));
+	qrcode.clear();
+    function generateQR() {
+			var timeNow = new Date().toLocaleString();
+			
+		const emailchecker = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		var alphaNumeric =/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
+		
+		
+        var namevalue = empname.value;
+		if(namevalue==="")
+		{
+		alert("please enter name");
+		return false;
+		}
+		
+		var emailvalue=empemail.value;
+		 if(emailvalue == '')
+		{
+		alert("enter email")
+		return false;
+		}else if(!(emailchecker.test(emailvalue))){
+		alert("enter email properly");
+		return false;
+		}
+		
+        var empidvalue = empid.value;
+		if(isNaN(empidvalue) || empidvalue==="")
+		{
+		alert("enter proper employee id");
+		return false;
+		}
+		
+		
+		
+		var gendervalue = gender.value;
+		
+		
+		var mobileChecker=/^[6-9]\d{9}$/;
+        var mobilevalue = mobile.value;
+		
+		if(!(mobileChecker.test(mobilevalue))){
+		alert("enter 10 digit mobile number starting with 6,7,8 or 9");
+		return false;
+		}
+		
+		var departmentvalue = department.value;
+		if(departmentvalue==="")
+		{
+		alert('enter departmnet');
+		return false;
+		}
+		
+		
+        var travellingfromvalue = travellingfrom.value;
+		if(travellingfromvalue==="")
+		{
+		alert('enter source of traver');
+		return false;
+		}
+		
+		//$("#qrcode > img").css({"margin-bottom":"100px"});
+		
+		var option1=$('input.option1:checked').val();
+		var option2=$('input.option2:checked').val();
+		var option3=$('input.option3:checked').val();
+		var option4=$('input.option4:checked').val();
+		var option5=$('input.option5:checked').val();
+		var option6=$('input.option6:checked').val();
+		var option7=$('input.option7:checked').val();
+		if(option1==undefined || option2==undefined || option3==undefined || option4==undefined || option5==undefined || option6==undefined || option7==undefined)
+		{
+		alert("fill all the checkbox");
+		return false;
+		}
+		if(option1=="yes" || option2=="yes" || option3=="yes" || option4=="yes" || option5=="yes" || option6=="yes" || option7=="no")
+		{
+		
+		document.getElementById("submit").disabled = true;
+		document.getElementById("homeQuarentineShow").style.display = "block";
+		//$("#qrcode > img").css({"display":"none"});
+		
+		}else{
+		
+        qrcode.makeCode(emailvalue+','+empidvalue+','+gendervalue+','+ mobilevalue+','+departmentvalue+','+travellingfromvalue+',Sfer_FevCog_'+option1+',FmHis_FevCou_'+option2+',Cont+ve10dys_'+option3+',TH_In10dys_'+option4+',PreExMedCon_'+option5+',SugLst6Mn_'+option6+',ArogStAp_'+option7+','+timeNow);
+		var download = document.getElementById("download");
+		var can = document.getElementsByTagName("canvas");
+		download.href=can[0].toDataURL("image/png");
+		download.download=empidvalue+".png";
+		//download.download=empidvalue+"_"+timeNow+".png";
+		document.getElementById("resetBarcode").style.display = "block";
+		}
+    }
+	function resetForm(){
+		document.getElementById("submit").disabled = false;
+		document.getElementById("homeQuarentineShow").style.display = "none";
+	}
+</script>
+
+</html>
+ 
